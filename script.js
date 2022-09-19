@@ -25,6 +25,7 @@ function updateGrid(val) {
     for(let i = 0; i < gridContainer.children.length; ++i)
     {
         gridContainer.children[i].addEventListener('mouseenter', (event) => {setCellColor(gridContainer.children[i])});
+        gridContainer.children[i].addEventListener('touchmove', (event) => {setCellColor(gridContainer.children[i])});
     }
 }
 

@@ -2,8 +2,8 @@
     display: grid; 
     /* gap: 3px; */
     padding: 0px;
-    height: 920px;
-    width: 920px;
+    height: 620px;
+    width: 620px;
     background: gainsboro;
     border: 1px solid;
 }
