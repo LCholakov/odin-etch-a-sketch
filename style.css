@@ -1,0 +1,9 @@
+.grid-container { 
+    display: grid; 
+    /* gap: 3px; */
+    padding: 0px;
+    height: 920px;
+    width: 920px;
+    background: gainsboro;
+    border: 1px solid;
+}
