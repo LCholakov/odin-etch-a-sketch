@@ -1,9 +1,8 @@
 const gridContainer = document.querySelector('.grid-container');
-
 const gridSizeSlider = document.querySelector('.grid-size-slider');
 const gridSizeText = document.querySelector('.grid-size-text');
-gridSizeText.textContent = `Grid size: ${gridSizeSlider.value}`;
 
+gridSizeText.textContent = `Grid size: ${gridSizeSlider.value}`;
 updateGrid(gridSizeSlider.value)
 
 function updateGrid(val) {
@@ -14,20 +13,32 @@ function updateGrid(val) {
     }
 
     for(let i = 1; i <= gridSizeSlider.value**2; ++i) {
-        console.log("gridsize", gridSizeSlider.value);
         gridContainer.style.setProperty('grid-template-columns', `repeat(${gridSizeSlider.value}, 1fr)`);
         const newDiv = document.createElement('div');
+        newDiv.id = `cell-${i}`;
         newDiv.style.setProperty('border', '0px inset blue');
         newDiv.style.setProperty('background-color', 'white');
+        newDiv.style.setProperty('touch-action', 'none');
         gridContainer.appendChild(newDiv);
     }
 
     for(let i = 0; i < gridContainer.children.length; ++i)
     {
-        gridContainer.children[i].addEventListener('mouseenter', (event) => {setCellColor(gridContainer.children[i])});
-        gridContainer.children[i].addEventListener('touchmove', (event) => {setCellColor(gridContainer.children[i])});
+        let currentCell = gridContainer.children[i];
+        currentCell.addEventListener('mouseenter', (event) => {setCellColor(gridContainer.children[i])});
     }
 }
+
+let previousCellUnderTouch;
+gridContainer.addEventListener('touchmove', function(e) {
+    let touch = e.touches[0];
+    let cellUnderTouch = document.elementFromPoint(touch.clientX, touch.clientY);
+    
+    if(cellUnderTouch && cellUnderTouch !== previousCellUnderTouch) {
+        setCellColor(cellUnderTouch);
+    }
+    previousCellUnderTouch = cellUnderTouch;
+})
 
 function setCellColor(cell)
 {
@@ -39,7 +50,6 @@ function setCellColor(cell)
     {
         cell.style.setProperty('background-color', RGB_Linear_Shade(-.1, currCellStyle));
     }
-    
 }
 
 function getRandColor()
